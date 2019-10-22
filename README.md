@@ -1,4 +1,4 @@
-Hey guys. I always was worring if there is a possibility to create an discord bot plugin for minecraft. And yes it is. It is my first real project on GitHub. So im sorry if i did anything wrong here. Shortly the instructions. This Plugin is only for BungeeCord 1.8 with CloudNet 2 at the moment. Later more Version like a bungee only and a bukkit based will come. It already has file-support which is pretty useless if you use it for cloud-net. But it is for the future version. 
+Hey guys. I always was wondering if there is a possibility to create an discord bot plugin for minecraft. And yes it is. It is my first real project on GitHub. So im sorry if i did anything wrong here. Shortly the instructions. This Plugin is only for BungeeCord 1.8 with CloudNet 2 at the moment. Later more Version like a bungee only and a bukkit based will come. It already has file-support which is pretty useless if you use it for cloud-net. But it is for the future version. 
 
 Instuctions:
 
