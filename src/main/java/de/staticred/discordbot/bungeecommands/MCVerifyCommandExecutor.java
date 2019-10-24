@@ -136,6 +136,7 @@ public class MCVerifyCommandExecutor extends Command {
                 return;
             }
 
+            Main.INSTANCE.removeAllRolesFromMember(m);
             Main.INSTANCE.updateRoles(m,groupPower);
 
             try {

@@ -105,7 +105,7 @@ public class Main extends Plugin {
         con.connect();
         System.out.println("[DiscordVerify] Connect test success!");
         try {
-            con.executeUpdate("CREATE TABLE IF NOT EXISTS verify(UUID VARCHAR(36) PRIMARY KEY, Name VARCHAR(16), Rank VARCHAR(20),Grouppower INT(5) ,Online BOOLEAN, Verified BOOLEAN, DiscordID VARCHAR(100))");
+            con.executeUpdate("CREATE TABLE IF NOT EXISTS verify(UUID VARCHAR(36) PRIMARY KEY, Name VARCHAR(16), Rank VARCHAR(20),Grouppower INT(5), Verified BOOLEAN, DiscordID VARCHAR(100))");
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("[DiscordVerify] Connect test failed!");

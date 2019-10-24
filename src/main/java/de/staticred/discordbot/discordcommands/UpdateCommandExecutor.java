@@ -49,6 +49,7 @@ public class UpdateCommandExecutor {
             return;
         }
 
+        Main.getInstance().removeAllRolesFromMember(m);
         Main.INSTANCE.updateRoles(m,groupPower);
 
         embedBuilder.setDescription(Main.getInstance().getStringFromConfig("UpdatedRank",false) + m.getAsMention());
