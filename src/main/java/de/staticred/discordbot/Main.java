@@ -77,7 +77,6 @@ public class Main extends Plugin {
 
         loadBungeeCommands(command);
 
-
         try {
             initBot(token,activity1);
         } catch (LoginException e) {
@@ -86,9 +85,13 @@ public class Main extends Plugin {
             return;
         }
 
+    }
 
-
-
+    @Override
+    public void onDisable() {
+        DataBaseConnection.INSTANCE.closeConnection();
+        ConfigFileManager.INSTANCE.saveFile();
+        VerifyFileManager.INSTANCE.saveFile();
     }
 
     public void loadBungeeCommands(String command) {
