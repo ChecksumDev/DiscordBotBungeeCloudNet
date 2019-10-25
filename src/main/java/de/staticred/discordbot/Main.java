@@ -12,10 +12,7 @@ import de.staticred.discordbot.files.ConfigFileManager;
 import de.staticred.discordbot.files.VerifyFileManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.*;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Plugin;
 
@@ -237,5 +234,25 @@ public class Main extends Plugin {
         for(Role role : m.getRoles()) {
             m.getGuild().removeRoleFromMember(m,role).queue();
         }
+    }
+
+    public Member getMemberFromPlayer(ProxiedPlayer player) throws SQLException {
+        User u;
+
+        u = Main.jda.getUserById(Long.parseLong(VerifyDAO.INSTANCE.getDiscordID(player)));
+
+
+        Member m = null;
+
+        if (!Main.jda.getGuilds().isEmpty()) {
+            for (Guild guild : Main.jda.getGuilds()) {
+                if (u != null)
+                    m = guild.getMember(u);
+            }
+        } else {
+            throw new SQLException("There was an internal error! But may not found") ;
+        }
+
+        return m;
     }
 }

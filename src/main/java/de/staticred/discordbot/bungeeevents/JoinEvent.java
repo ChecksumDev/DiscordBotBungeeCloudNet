@@ -1,7 +1,9 @@
 package de.staticred.discordbot.bungeeevents;
 
+import de.dytanic.cloudnet.api.player.PermissionProvider;
 import de.staticred.discordbot.Main;
 import de.staticred.discordbot.db.VerifyDAO;
+import net.dv8tion.jda.api.entities.Member;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -39,15 +41,20 @@ public class JoinEvent implements Listener {
             }
 
 
-            /*
-
             VerifyDAO.INSTANCE.updateGroupPower(player, PermissionProvider.getGroupJoinPower(PermissionProvider.getGroupName(player.getUniqueId())));
             VerifyDAO.INSTANCE.updateUserName(player);
             VerifyDAO.INSTANCE.updateRank(player);
 
-             */
+            if(VerifyDAO.INSTANCE.isPlayerVerified(player)) {
+                Member m = Main.getInstance().getMemberFromPlayer(player);
+                Main.INSTANCE.updateRoles(m,PermissionProvider.getGroupJoinPower(PermissionProvider.getGroupName(player.getUniqueId())));
 
-
+                if(Main.INSTANCE.syncNickname) {
+                    if(!m.isOwner()) {
+                        m.getGuild().modifyNickname(m, player.getName()).queue();
+                    }
+                }
+            }
 
         } catch(
                 SQLException ex)
