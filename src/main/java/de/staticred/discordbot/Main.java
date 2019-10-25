@@ -94,6 +94,7 @@ public class Main extends Plugin {
 
     public void loadBungeeCommands(String command) {
         getProxy().getPluginManager().registerCommand(this,new MCVerifyCommandExecutor(command));
+        getProxy().getPluginManager().registerCommand(this,new MCVerifyCommandExecutor("dbreload"));
     }
 
     public void loadBungeeEvents() {
