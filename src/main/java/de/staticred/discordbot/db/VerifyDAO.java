@@ -49,7 +49,7 @@ public class VerifyDAO {
 
         DataBaseConnection con = DataBaseConnection.INSTANCE;
         con.connect();
-        con.executeUpdate("INSERT INTO verify(UUID,Name,Rank,Grouppower,Online,Verified,DiscordID) VALUES(?,?,?,?,?,?,?)", player.getUniqueId().toString(), player.getName(), PermissionProvider.getGroupName(player.getUniqueId()),PermissionProvider.getGroupJoinPower(PermissionProvider.getGroupName(player.getUniqueId())), false,null);
+        con.executeUpdate("INSERT INTO verify(UUID,Name,Rank,Grouppower,Online,DiscordID) VALUES(?,?,?,?,?,?)", player.getUniqueId().toString(), player.getName(), PermissionProvider.getGroupName(player.getUniqueId()),PermissionProvider.getGroupJoinPower(PermissionProvider.getGroupName(player.getUniqueId())), false,null);
         con.closeConnection();
     }
 
