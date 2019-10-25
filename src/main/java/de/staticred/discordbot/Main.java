@@ -30,6 +30,7 @@ public class Main extends Plugin {
     public static HashMap<ProxiedPlayer, Member> playerMemberHashMap = new HashMap<>();
     public static HashMap<ProxiedPlayer, TextChannel> playerChannelHashMap = new HashMap<>();
     public boolean useSQL;
+    public boolean syncNickname;
 
 
     public  static JDA jda;
@@ -52,14 +53,12 @@ public class Main extends Plugin {
         loadBungeeEvents();
 
 
-
+        syncNickname = ConfigFileManager.INSTANCE.nameSync();
 
         String activity = ConfigFileManager.INSTANCE.getString("discordBotActivityType");
         String type = ConfigFileManager.INSTANCE.getString("discordBotActivity");
         String link = ConfigFileManager.INSTANCE.getString("streamingLink");
         Activity activity1;
-
-
 
         if(activity.equalsIgnoreCase("listening")) {
             activity1 = Activity.listening(type);
@@ -72,6 +71,8 @@ public class Main extends Plugin {
         }else {
             activity1 = Activity.playing(type);
         }
+
+
 
         String command = ConfigFileManager.INSTANCE.getString("verifycommand");
 

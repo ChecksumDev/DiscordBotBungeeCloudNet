@@ -87,4 +87,8 @@ public class ConfigFileManager {
         return conf.getBoolean("useIDS");
     }
 
+    public boolean nameSync() {
+        return conf.getBoolean("syncNickName");
+    }
+
 }

@@ -1,5 +1,6 @@
 package de.staticred.discordbot.bungeecommands;
 
+import de.dytanic.cloudnet.api.CloudAPI;
 import de.dytanic.cloudnet.api.player.PermissionProvider;
 import de.staticred.discordbot.Main;
 import de.staticred.discordbot.db.VerifyDAO;
@@ -46,6 +47,7 @@ public class MCVerifyCommandExecutor extends Command {
                 return;
             }
 
+
             Member m = Main.playerMemberHashMap.get(p);
             TextChannel tc = Main.playerChannelHashMap.get(p);
 
@@ -54,6 +56,16 @@ public class MCVerifyCommandExecutor extends Command {
             groupPower = PermissionProvider.getGroupJoinPower(PermissionProvider.getGroupName(p.getUniqueId()));
 
             Main.getInstance().updateRoles(m,groupPower);
+
+            if(Main.INSTANCE.syncNickname) {
+                if(m.isOwner()) {
+                    p.sendMessage(new TextComponent(Main.getInstance().getStringFromConfig("MemberIsOwner",false)));
+                }else {
+                    m.getGuild().modifyNickname(m,p.getName()).queue();
+                }
+            }
+
+
 
             try {
                 VerifyDAO.INSTANCE.setPlayerAsVerifyd(p);
@@ -134,6 +146,14 @@ public class MCVerifyCommandExecutor extends Command {
             if (m == null) {
                 p.sendMessage(new TextComponent(Main.getInstance().getStringFromConfig("InternalError",true)));
                 return;
+            }
+
+            if(Main.INSTANCE.syncNickname) {
+                if(m.isOwner()) {
+                    p.sendMessage(new TextComponent(Main.getInstance().getStringFromConfig("MemberIsOwner",false)));
+                }else {
+                    m.getGuild().modifyNickname(m,p.getName()).queue();
+                }
             }
 
             Main.INSTANCE.removeAllRolesFromMember(m);

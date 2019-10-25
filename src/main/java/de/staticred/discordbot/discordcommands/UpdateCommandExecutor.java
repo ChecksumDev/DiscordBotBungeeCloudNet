@@ -6,6 +6,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.md_5.bungee.api.chat.TextComponent;
+
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
@@ -47,6 +49,22 @@ public class UpdateCommandExecutor {
         }catch (Exception e) {
             e.printStackTrace();
             return;
+        }
+
+
+        if(Main.INSTANCE.syncNickname) {
+            if(m.isOwner()) {
+               embedBuilder.setDescription(Main.getInstance().getStringFromConfig("MemberIsOwner",false));
+               embedBuilder.setColor(Color.red);
+                tc.sendMessage(embedBuilder.build()).queue(msg -> msg.delete().queueAfter(10, TimeUnit.SECONDS));
+                command.delete().queueAfter(10,TimeUnit.SECONDS);
+            }else {
+                try {
+                    m.getGuild().modifyNickname(m,VerifyDAO.INSTANCE.getName(m.getId())).queue();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         Main.getInstance().removeAllRolesFromMember(m);

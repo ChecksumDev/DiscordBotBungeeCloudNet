@@ -1,5 +1,6 @@
 package de.staticred.discordbot.db;
 
+import de.dytanic.cloudnet.api.CloudAPI;
 import de.dytanic.cloudnet.api.player.PermissionProvider;
 import de.staticred.discordbot.Main;
 import de.staticred.discordbot.files.VerifyFileManager;
@@ -53,6 +54,8 @@ public class VerifyDAO {
         con.closeConnection();
     }
 
+
+
     public String getDiscordID(ProxiedPlayer player) throws SQLException {
 
         if(!sql) {
@@ -72,6 +75,29 @@ public class VerifyDAO {
             ps.close();
             con.closeConnection();
             return discordID;
+        }
+        con.closeConnection();
+        ps.close();
+        rs.close();
+        return null;
+    }
+
+    public String getName(String discordID) throws SQLException {
+        if(!sql) return VerifyFileManager.INSTANCE.getName(discordID);
+
+        DataBaseConnection con = DataBaseConnection.INSTANCE;
+        con.connect();
+        PreparedStatement ps = con.getConnection().prepareStatement("SELECT * FROM verify WHERE DiscordID = ?");
+        ps.setString(1,discordID);
+
+        ResultSet rs = ps.executeQuery();
+
+        if(rs.next()) {
+            String name = rs.getString("Name");
+            rs.close();
+            ps.close();
+            con.closeConnection();
+            return name;
         }
         con.closeConnection();
         ps.close();

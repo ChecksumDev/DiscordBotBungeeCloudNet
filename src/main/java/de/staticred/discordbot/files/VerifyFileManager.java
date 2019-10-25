@@ -152,7 +152,8 @@ public class VerifyFileManager {
     }
 
 
-
-
-
+    public String getName(String discordID) {
+        String uuid = getUUIDFromDiscordID(discordID);
+        return conf.getString(uuid + ".name");
+    }
 }
